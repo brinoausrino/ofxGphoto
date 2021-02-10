@@ -6,7 +6,7 @@ libgphoto is a C library that enables the communication with a [lot of digital c
 
 ## Installation/Usage on Linux
 
-First install libgphoto.
+### Install libgphoto.
 
 Arch linux
 ```
@@ -18,9 +18,11 @@ Debian based
 sudo apt-get install libgphoto2
 ```
 
+### Create a project
+
 Create a new project using the project generator. 
 
-Add linker flags '-lgphoto2','-lgphoto2_port'
+Add linker flags `-lgphoto2`,`-lgphoto2_port`
 
 using qt
 ```
