@@ -17,9 +17,9 @@
 meta:
 	ADDON_NAME = ofxGphoto
 	ADDON_DESCRIPTION = Addon that wraps libgphoto
-	ADDON_AUTHOR = Brian Eschrich
+	ADDON_AUTHOR = brinoausrino
 	ADDON_TAGS = "libgphoto" "Camera"
-	ADDON_URL = http://github.com/openframeworks/openFrameworks
+	ADDON_URL = http://github.com/brinoausrino/ofxGphoto
 
 common:
 	# dependencies with other addons, a list of them separated by spaces
