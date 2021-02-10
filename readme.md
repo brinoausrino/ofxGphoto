@@ -1,6 +1,6 @@
 # ofxGphoto
 
-ofxGphoto wraps [libgphoto](https://github.com/gphoto/libgphoto2) to [openFrameworks](https://openframeworks.cc/). It is oriented close to [ofxEdsdk](https://github.com/kylemcdonald/ofxEdsdk) both in forms of usage and internal workflow.
+ofxGphoto wraps [libgphoto](https://github.com/gphoto/libgphoto2) to [openFrameworks](https://openframeworks.cc/). It is strongly oriented towards [ofxEdsdk](https://github.com/kylemcdonald/ofxEdsdk) both in forms of usage and internal workflow.
 
 libgphoto is a C library that enables the communication with a [lot of digital cameras](http://www.gphoto.org/proj/libgphoto2/support.php).
 
