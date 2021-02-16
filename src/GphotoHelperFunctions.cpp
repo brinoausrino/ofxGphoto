@@ -91,7 +91,7 @@ int sampleOpenCamera (Camera ** camera, const char *model, const char *port, GPC
  * Sample (for Canons eg):
  *   get_config_value_string (camera, "owner", &ownerstr, context);
  */
-int ofxGphoto::getConfigValueString(Camera *camera, const char *key, char **str, GPContext *context)
+int getConfigValueString(Camera *camera, const char *key, char **str, GPContext *context)
 {
     CameraWidget		*widget = NULL, *child = NULL;
             CameraWidgetType	type;
