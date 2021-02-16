@@ -15,7 +15,7 @@ sudo pacman -S libgphoto2
 
 Debian based
 ```
-sudo apt-get install libgphoto2
+sudo apt-get install libgphoto2-dev
 ```
 
 ### Create a project
