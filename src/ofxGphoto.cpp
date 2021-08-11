@@ -277,6 +277,7 @@ vector<CameraInformation> GPhoto::listDevices() const
 					photoTexture.allocate(photoPixels.getWidth(), photoPixels.getHeight(), GL_RGB8);
 				}
 				photoTexture.loadData(photoPixels);
+				photoTexture.setAnchorPercent(0.5, 0.5);
 				needToUpdatePhoto = false;
 			}
 		}
@@ -389,25 +390,46 @@ vector<CameraInformation> GPhoto::listDevices() const
 		int		ret, count;
 		ret = gp_list_new (&list);
 
-		// autodetect
-		gp_list_reset (list);
-		count = gp_camera_autodetect (list, context);
 
-		if (count == 0) {
-			ofLogError("ofxGphoto::setup") <<"No cameras detected.";
-		}else if (id >= count) {
-			ofLogNotice("ofxGphoto::setup") <<"Camera id not available, taking ID 0";
-			id = 0;
-		}
+		GPPortInfoList *port_info_list = nullptr;
+		CameraAbilitiesList *camera_abilities_list = nullptr;
 
-		cams = (Camera**) calloc (sizeof(Camera*),count);
+
+    	gp_port_info_list_new(&port_info_list);
+    	gp_port_info_list_load(port_info_list);
+
+    	gp_abilities_list_new(&camera_abilities_list);
+    	gp_abilities_list_load(camera_abilities_list, context);
+
+		
+
+		int num_cams = gp_camera_autodetect(list, context);
+
+		const char *name, *port;
+
+
+		gp_list_get_name(list, id, &name);
+		gp_list_get_value(list, id, &port);
+
+		cams = (Camera**) calloc (sizeof(Camera*),2);
 		camera = cams[id];
-
-		cameracontext = gp_context_new();
 		gp_camera_new(&camera);
 
 
-		int retval = gp_camera_init(camera, cameracontext);
+		CameraAbilities abilities;
+		int model_index = gp_abilities_list_lookup_model(camera_abilities_list, name);
+		gp_abilities_list_get_abilities(camera_abilities_list, model_index, &abilities);
+		gp_camera_set_abilities(camera, abilities);
+
+		int port_index = gp_port_info_list_lookup_path(port_info_list, port);
+
+
+		GPPortInfo port_info;
+		gp_port_info_list_get_info(port_info_list, port_index, &port_info);
+		gp_camera_set_port_info(camera, port_info);
+
+		int retval = gp_camera_init(camera, context);
+		
 		if (retval != GP_OK) {
 			ofLogError("ofxGphoto::setup") << "Camera initialisation error - " << retval << "   " << gp_result_as_string(retval)<<endl;
 		}else {
@@ -419,6 +441,7 @@ vector<CameraInformation> GPhoto::listDevices() const
 			if (retval == GP_OK) {
 				ofLogNotice("ofxGphoto::setup") << "camera information";
 				ofLogNotice("=========================================");
+
 				ofBuffer cText(text.text,30*1024);
 				int count = 0;
 				for(auto& l:cText.getLines()){
@@ -436,6 +459,7 @@ vector<CameraInformation> GPhoto::listDevices() const
 			connected = true;
 
 		}
+
 	}
 
 	void GPhoto::startCapture() {
