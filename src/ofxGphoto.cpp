@@ -277,7 +277,6 @@ vector<CameraInformation> GPhoto::listDevices() const
 					photoTexture.allocate(photoPixels.getWidth(), photoPixels.getHeight(), GL_RGB8);
 				}
 				photoTexture.loadData(photoPixels);
-				photoTexture.setAnchorPercent(0.5, 0.5);
 				needToUpdatePhoto = false;
 			}
 		}
